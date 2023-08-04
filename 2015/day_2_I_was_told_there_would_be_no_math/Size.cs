@@ -7,6 +7,8 @@ public class Size
     public int Length { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+
+    #region Part1
     public int SmallestSize
     {
         get
@@ -49,6 +51,47 @@ public class Size
             return SurfaceArea + SmallestSize;
         }
     }
+    #endregion
+
+    #region Part2
+    public int SmallestDimension
+    {
+        get
+        {
+            return new[] { Length, Width, Height }.Min();
+        }
+    }
+    public int SecondSmallestDimension
+    {
+        get
+        {
+            return new[] { Length, Width, Height }.OrderByDescending(x => x).Skip(1).First();
+        }
+    }
+    public int RibbonLength
+    {
+        get
+        {
+            return SmallestDimension + SmallestDimension + SecondSmallestDimension + SecondSmallestDimension;
+        }
+    }
+
+    public int BowLength
+    {
+        get
+        {
+            return Length * Width * Height;
+        }
+    }
+
+    public int TotalRibbonLength
+    {
+        get
+        {
+            return RibbonLength + BowLength;
+        }
+    }
+    #endregion
 
     public Size(int length, int width, int height)
     {
@@ -59,6 +102,6 @@ public class Size
 
     public override string ToString()
     {
-        return $"Length:{Length} Width:{Width} Heigth:{Height} LengthWidth:{LengthWidth} LengthHeight:{LengthHeight} WidthHeight:{WidthHeight}";
+        return $"Length:{Length} Width:{Width} Height:{Height}";
     }
 }
