@@ -1,36 +1,36 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Net.WebSockets;
-using System.Text.Json;
-using IWasToldThereWouldBeNoMath;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using PerfectlySphericalHousesInAVacuum;
 
-var sizes = args;
-Int64 totalSA = 0;
-Int64 totalRibbon = 0;
+var input = args;
 
-for (int i = 0; i < sizes.Length; i++)
+List<Direction> directions = new();
+var santa = new Santa();
+
+for (int i = 0; i < input[0].Length; i++)
 {
-    var dimensions = sizes[i].Split("x");
-    var size = new Size(int.Parse(dimensions[0]), int.Parse(dimensions[1]), int.Parse(dimensions[2]));
-    System.Console.WriteLine("Dimensions: {0}\tTotal SA: {1}\tTotal Ribbon: {2}", size.ToString(), size.TotalSurfaceArea, size.TotalRibbonLength);
-    System.Console.WriteLine("{0} {1}x{2}x{3} = {4}", size.RibbonLength, size.Length, size.Width, size.Height, size.BowLength);
-    totalSA += size.TotalSurfaceArea;
-    totalRibbon += size.TotalRibbonLength;
-    System.Console.WriteLine("{0} {1}", totalSA, totalRibbon);
+    var direction = new Direction(input[0][i]);
+    santa.AddToTrip(direction.Coordinate);
 }
 
-// void Test()
-// {
-//     var d = "5x6x7";
+var calculatedTrip = santa.CalculateAndGroupTrip()!;
+var housesVisited = 0;
 
-//     var dimensions = d.Split("x");
-//     var size = new Size(int.Parse(dimensions[0]), int.Parse(dimensions[1]), int.Parse(dimensions[2]));
-//     System.Console.WriteLine("Dimensions: {0}\tTotal SA: {1}", size.ToString(), size.TotalSurfaceArea);
-//     totalSA += size.TotalSurfaceArea;
-//     totalRibbon += size.TotalRibbonLength;
-//     System.Console.WriteLine("{0} {1}", totalSA, totalRibbon);
+for (int i = 0; i < calculatedTrip!.Count; i++)
+{
+    var some = calculatedTrip[i];
 
-//     return;
-// }
+    if (some.Count >= 1)
+    {
+        housesVisited++;
+    }
 
-// Test();
+    for (int j = 0; j < some.Count; j++)
+    {
+        System.Console.WriteLine(some[j]);
+    }
+}
+
+System.Console.WriteLine(housesVisited);
